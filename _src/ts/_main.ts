@@ -1,6 +1,6 @@
 import { fromEvent, map, Observable, Observer } from "rxjs";
 
-const MyConsoleTools = require('@rick.info.dev/console-tools'); //Créé en tant que librairie WebPack ! (I:\__FORMATIONS\TYPESCRIPT\zzToolCode\ConsoleTools)
+const MyConsoleTools = require('@rick.info.dev/console-tools'); //Créé en tant que librairie WebPack ! (I:\__FORMATIONS\TYPESCRIPT\zzToolCode\LIB_ConsoleTools)
 // console.log(MyConsoleTools.Console);
 // console.log(MyConsoleTools.ConsoleCssStyledMessage);
 // console.log(MyConsoleTools.ConsoleCssStyledMessages);
