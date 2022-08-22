@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="./styles.css"/>
+    <script defer src="./_build/myBundle.js"></script><!-- defer : pour ne pas avoir à mettre cette balise script après le body -->
+
+  </head>
+  <body>
+    <button id="MainStreamButton" class="emissionButton" style="border-radius: 3px; height: 25px;">
+      Click me to Send 1 new Data, into the Main observable stream
+    </button>&nbsp;&nbsp;<small>(Ouvrir la console)</small>
+    <br>
+    <div id = "MapOperatorsToTestRadioGroupContainer" style = "border: 1px solid;"
+      title = "choose the inner obervable map operator you wanna test"
+    >
+        <input type="radio" name = "MapOperatorsToTestRadioGroup"/><label></label>
+        <br>
+        <input type="radio" name = "MapOperatorsToTestRadioGroup"/><label></label>
+        <br>
+        <input type="radio" name = "MapOperatorsToTestRadioGroup"/><label></label>
+        <br>
+        <input type="radio" name = "MapOperatorsToTestRadioGroup"/><label></label>
+        <br>
+      </div>
+    </div>
+    <pre>
+      <small>
+      Rem.: ici 1 clic sur le <span class="emissionButton">bouton d'émission</span>,
+      provoque l'émission d'une data mère, pour le inner observable (du map Operator RxJs choisi).
+      </small>  
+
+      CONCLUSION : 
+        <b>switchMap : </b>
+          <i>lorsqu'une nouvelle émission est produite par l'Observable dont switchMap reçoit la <span class="dataEmise">data émise</span></i>,
+          switchMap stoppe<small>(unsubscribe)</small> toute émission en cours de son observable propre <small>(dit inner observable, c-à-d celui que switchMap retourne)</small>,
+          et switchMap souscrit un tout nouveau inner observable recevant alors la dite <span class="dataEmise">data émise</span>.
+          Ainsi, ici, si l'on clique sur le <span class="emissionButton">bouton d'émission</span>, alors que son inner observable n'a pas encore fini
+          d'émettre ses propres data, eh bien, la dite émission est <u>interrompue</u>, et un tout nouveau inner observable
+          est renvoyée par switchMap.
+
+        <b>concatMap : </b>
+          <i>lorsqu'une nouvelle émission est produite par l'Observable dont concatMap reçoit la <span class="dataEmise">data émise</span></i>,
+          concatMap ne stoppe PAS<small>(unsubscribe)</small> son émission en cours, celle de son observable propre <small>(dit inner observable, c-à-d celui que concatMap retourne)</small>,
+          mais bufferise / met en file d'attente, cette nouvelle émission, cette nouvelle <span class="dataEmise">data émise</span>.
+          <i>Puis, lorsque l'émission en cours de son observable propre sera terminée</i>, là il traitera alors la dite <span class="dataEmise">data émise</span>,
+          en souscrivant un nouvel inner observable.
+          Ainsi, ici, si l'on clique plusieurs fois d'affilée sur le <span class="emissionButton">bouton d'émission</span>,
+          eh bien, chaque clic, c-à-d chaque émission mère (<span class="dataEmise">data émise</span>) , sera bien pris en compte son tour venu (dans l'ordre des clics),
+          et l'inner stream qui découlera de chaque clic, sera toujours déroulé jusqu'à son terme (non interrompable).
+      
+        <b>exhaustMap : </b>
+          <i>lorsqu'une nouvelle émission est produite par l'Observable dont exhaustMap reçoit la <span class="dataEmise">data émise</span></i>,
+          exhaustMap ne la prend en compte <u><b>QUE</b></u> si son inner Observable en cours, avait totalement fini d'émettre.
+          Ainsi, ici, si l'on clique plusieurs fois d'affilée sur le <span class="emissionButton">bouton d'émission</span>,
+          seul le premier clic est pris en compte.
+
+        <b>mergeMap : </b>
+          <i>lorsqu'une nouvelle émission est produite par l'Observable dont mergeMap reçoit la <span class="dataEmise">data émise</span></i>,
+          mergeMap la prend en compte en souscrivant un nouvel inner Observable, 
+          lequel verra son flux mergé à celui des inner observables de mergeMap qui sont déjà en cours.
+          Ainsi, ici, si l'on clique plusieurs fois d'affilée sur le <span class="emissionButton">bouton d'émission</span>,
+          chaque clic sera pris en compte, mais les inner-émissions seront mélangées 
+          <small>(par exemple celles correspondant à un autre clic seront mélangées à celle correspondant au dernier clic)</small>.
+    </pre>
+
+  </body>
+</html>
+

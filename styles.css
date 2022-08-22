@@ -1,0 +1,18 @@
+div[title]:hover::after { /* pour toute div ayant un attribut title
+                             lorsqu'on la survolera, on lui appendera en dernier enfant (::after)
+                             le content mentionné ci-dessous.
+                           */
+    content: attr(title); /*Valeur de l'attribut title de la dite div*/
+    color: red;
+    font-size: 0.6rem;
+}
+
+
+.dataEmise {
+    color: green;
+    font-weight: bold;
+}
+
+.emissionButton {
+    background-color: yellowgreen;
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    
+    "target": "esnext"
+    , "moduleResolution": "node"  //<<<<INDISPENSABLE si l'on veut que 
+                                  //    les imports from "rxjs/..." soient reconnus !!
+
+    // , "sourceMap": true  //Mais dans ce cas, doit aussi être mis dans la config. de WebPack.
+    
+    // , "lib": [
+    //   "es2017",
+    //   "dom"
+    // ]    
+
+
+
+    //,"outDir": "./_build" //NE SERT A RIEN POUR WebPack.
+    
+    // , "module": "es6"
+
+    // , "typeRoots": [
+    //   "node_modules/@types"
+    // ]
+    
+  }
+}
